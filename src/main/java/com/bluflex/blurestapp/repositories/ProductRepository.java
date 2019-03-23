@@ -1,4 +1,4 @@
-package com.bluflex.blurestapp.respositories;
+package com.bluflex.blurestapp.repositories;
 
 import com.bluflex.blurestapp.domain.Product;
 import org.springframework.data.repository.CrudRepository;
