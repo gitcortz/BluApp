@@ -1,0 +1,30 @@
+package com.bluflex.blurestapp.domain;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.Set;
+
+@Entity
+public class PurchaseOrder {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String poNumber;
+    private Date orderDate;
+    @Enumerated(value = EnumType.STRING)
+    private PurchaseOrderStatus status;
+    private BigDecimal totalAmount;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "purchaseOrder")
+    private Set<PurchaseOrderLine> purchaseOrderLines;
+
+
+    @JsonFormat(pattern = "yyyy-mm-dd")
+    @Column(updatable = false)
+    private Date createdAt;
+    @JsonFormat(pattern = "yyyy-mm-dd")
+    private Date updatedAt;
+}
