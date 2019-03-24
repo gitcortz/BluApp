@@ -4,11 +4,13 @@ import com.bluflex.blurestapp.api.v1.mapper.PurchaseOrderMapper;
 import com.bluflex.blurestapp.api.v1.model.PurchaseOrderDTO;
 import com.bluflex.blurestapp.domain.PurchaseOrder;
 import com.bluflex.blurestapp.repositories.PurchaseOrderRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     private final PurchaseOrderMapper purchaseOrderMapper;
