@@ -6,6 +6,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -21,7 +22,7 @@ public class PurchaseOrder {
     private BigDecimal totalAmount;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "purchaseOrder")
-    private Set<PurchaseOrderLine> purchaseOrderLines;
+    private Set<PurchaseOrderLine> purchaseOrderLines = new HashSet<>();
 
 
     @JsonFormat(pattern = "yyyy-mm-dd")
@@ -29,4 +30,10 @@ public class PurchaseOrder {
     private Date createdAt;
     @JsonFormat(pattern = "yyyy-mm-dd")
     private Date updatedAt;
+
+    public PurchaseOrder addPurchaseOrderLine(PurchaseOrderLine purchaseOrderLine){
+        purchaseOrderLine.setPurchaseOrder(this);
+        this.purchaseOrderLines.add(purchaseOrderLine);
+        return this;
+    }
 }
