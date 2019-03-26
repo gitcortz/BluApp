@@ -4,10 +4,7 @@ import com.bluflex.blurestapp.api.v1.model.PurchaseOrderDTO;
 import com.bluflex.blurestapp.domain.PurchaseOrder;
 import com.bluflex.blurestapp.services.PurchaseOrderService;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,5 +23,11 @@ public class PurchaseOrderController {
     @ResponseStatus(HttpStatus.OK)
     public List<PurchaseOrderDTO> getAllPurchaseOrders() {
         return purchaseOrderService.getAllPurchaseOrders();
+    }
+
+    @GetMapping("{poNumber}")
+    @ResponseStatus(HttpStatus.OK)
+    public PurchaseOrderDTO getPurchaseOrderByPoNumber(@PathVariable String poNumber){
+        return purchaseOrderService.getPurchaseOrderByPoNumber(poNumber);
     }
 }

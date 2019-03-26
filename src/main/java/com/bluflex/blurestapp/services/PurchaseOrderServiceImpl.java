@@ -34,6 +34,6 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     @Override
     public PurchaseOrderDTO getPurchaseOrderByPoNumber(String poNumber) {
-        return null;
+        return purchaseOrderMapper.purchaseOrderToPurchaseOrderDTO(purchaseOrderRepository.findByPoNumber(poNumber));
     }
 }

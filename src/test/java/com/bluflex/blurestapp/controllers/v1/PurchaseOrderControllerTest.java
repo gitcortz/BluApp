@@ -15,8 +15,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -44,7 +46,7 @@ public class PurchaseOrderControllerTest {
     }
 
     @Test
-    public void getAllPurchaseOrders() throws Exception {
+    public void getAllPurchaseOrdersTest() throws Exception {
         PurchaseOrderDTO purchaseOrderDTO = new PurchaseOrderDTO();
         purchaseOrderDTO.setId(11L);
         purchaseOrderDTO.setPoNumber(PO_NUMBER);
@@ -61,5 +63,20 @@ public class PurchaseOrderControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
+    }
+
+    @Test
+    public void getPurchaseOrderByPoNumberTest() throws Exception {
+        PurchaseOrderDTO purchaseOrderDTO = new PurchaseOrderDTO();
+        purchaseOrderDTO.setId(11L);
+        purchaseOrderDTO.setPoNumber(PO_NUMBER);
+
+
+        when(purchaseOrderService.getPurchaseOrderByPoNumber(anyString())).thenReturn(purchaseOrderDTO);
+
+        mockMvc.perform(get(PurchaseOrderController.BASE_URL + "/PO-0001")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.poNumber", equalTo(PO_NUMBER)));
     }
 }
