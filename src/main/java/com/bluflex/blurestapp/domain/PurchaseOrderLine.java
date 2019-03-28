@@ -1,6 +1,7 @@
 package com.bluflex.blurestapp.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -9,8 +10,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-@Entity
 @EqualsAndHashCode(exclude = {"purchaseOrder"})
+@Entity
 public class PurchaseOrderLine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +28,8 @@ public class PurchaseOrderLine {
     private String color;
     private String size;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     private PurchaseOrder purchaseOrder;
 
     @JsonFormat(pattern = "yyyy-mm-dd")
@@ -35,4 +37,19 @@ public class PurchaseOrderLine {
     private Date createdAt;
     @JsonFormat(pattern = "yyyy-mm-dd")
     private Date updatedAt;
+
+    @Override
+    public String toString() {
+        return "PurchaseOrderLine{" +
+                "id=" + id +
+                ", quantity=" + quantity +
+                ", uom=" + uom +
+                ", product=" + product +
+                ", unitPrice=" + unitPrice +
+                ", color='" + color + '\'' +
+                ", size='" + size + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }
